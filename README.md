@@ -1,2 +1,2 @@
-# Calculator-
+# Calculator
 TOP project
