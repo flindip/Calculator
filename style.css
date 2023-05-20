@@ -30,6 +30,8 @@ border:solid black;
     font-size:40px;
     flex:1;
     display:flex;
+    flex-wrap:wrap;
+    word-break:break-all
    
 }
 .row{
@@ -37,10 +39,12 @@ border:solid black;
     justify-content:space-evenly;
     flex:1;
 }
-
 .button{
  flex:1;
  font-size:30px;
  }
- p{
-margin:0;}
+ 
+
+
+ 
+

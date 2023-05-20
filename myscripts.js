@@ -3,7 +3,8 @@ let num2='';
 let operator='';
 let stringOperator=''
 let storedResult='';
-
+ 
+    const display=document.getElementById('display');
     const seven= document.getElementById('seven');
     seven.addEventListener('click', ()=>(num1.length!=0 && operator.length!=0)? storeNum2('7'): storeNum1('7'));
     const eight = document.getElementById('eight'); 
@@ -38,7 +39,8 @@ let storedResult='';
     clear.addEventListener('click',()=>{ return num1='', num2='', operator='', stringOperator='', storedResult='', display.textContent='';})
     const negInt=document.getElementById('neg-int');
     negInt.addEventListener('click', ()=> checkNegInt());
-    
+    const decimal=document.getElementById('decimal');
+    decimal.addEventListener('click', ()=>checkDec());
     
     function checkNegInt(){
         if(storedResult.length!=0 || stringOperator.length!=0){
@@ -51,6 +53,18 @@ let storedResult='';
             return num1=num1.replace('-', ''), display.textContent=num1;}
         if(operator.length===0){
            return num1=`${'-'}${num1}`, display.textContent=num1;}};
+
+        function checkDec(){
+            if(storedResult.length!=0 || stringOperator.length!=0){
+                return storeNum1('.');}
+            if(num2.includes('.')===true){
+                return num2=num2.replace('.', ''), display.textContent=num2;}
+             if(num1.length!=0 && operator.length!=0){
+                return num2+='.', display.textContent=num2;}
+            if(num1.includes('.')===true){
+                return num1=num1.replace('.', ''), display.textContent=num1;}
+            if(operator.length===0){
+               return num1+='.', display.textContent=num1;}};
       
         function storeNum1(x){
         if(storedResult.length!=0 && operator.length!=0){
@@ -64,22 +78,31 @@ let storedResult='';
          storedResult='';
          display.textContent='';
         return storeNum2(x);}
+        if(num1.length===31){
+            return;
+        }
         else{
       display.textContent+=x;
       num1+=x;}};
     
        function storeNum2(x){
-      display.textContent+=x;
-      num2+=x;};
+       if(num2.length===31){
+            return;        
+       }
+       if(num1.length!=0 && operator.length!=0 && num2.length===0){
+             display.textContent='';
+       }
+       display.textContent+=x
+       num2+=x;};
     
     function op(x){
-    display.textContent+=x;
+    display.textContent=x;
     stringOperator='';
     operator=x; 
-    }
+    };
+    
     function operate(num1, operator, num2){
-   
-       switch(operator){
+      switch(operator){
        case '/':
       divide(num1, num2);
       break;
@@ -92,40 +115,119 @@ let storedResult='';
       case '+':
      add(num1, num2);
      break;
-    }}
+    }};
 
     function divide(num1, num2){
-    num1=parseInt(num1);
-    num2=parseInt(num2);
-    if(num2===0){
-        num1='', num2='', operator='', stringOperator='', storedResult='', display.textContent='';
-        return alert('To Infinity and Beyond!! Why do you want to break the Calculator?');
-    }
-    let result=(num1/num2);
-    display.textContent=result;
-    storedResult=result.toString();
-    }
+        if(num2==='0'){
+            num1='', num2='', operator='', stringOperator='', storedResult='', display.textContent='';
+            return alert('To Infinity and Beyond!! Why do you want to break the Calculator?');}
+            if(num1.includes('.')===false){
+                num1=parseInt(num1);}
+            else if(num1.includes('.')===true){
+                num1=parseFloat(num1);}
+            if(num2.includes('.')===false){
+                num2=parseInt(num2);}    
+           else if(num2.includes('.')===true){
+                num2=parseFloat(num2);}
+      
+          let result=(num1/num2);
+          result=result.toString();
+    
+          if(result.includes('.')===true && result.length>15){
+            result=parseFloat(result);
+            result=Math.round(result*100)/100;
+            display.textContent=result;
+            storedResult=result.toString();} 
+        else if(result.includes('.')===true){
+            result=parseFloat(result);
+            display.textContent=result;
+            storedResult=result.toString();}
+        else{
+        result=parseInt(result);
+        display.textContent=result;
+        storedResult=result.toString();
+    }};
 
     function multiply(num1, num2){
-        num1=parseInt(num1);
-        num2=parseInt(num2);
+        if(num1.includes('.')===false){
+            num1=parseInt(num1);}
+        else if(num1.includes('.')===true){
+            num1=parseFloat(num1);}
+        if(num2.includes('.')===false){
+            num2=parseInt(num2);}    
+       else if(num2.includes('.')===true){
+            num2=parseFloat(num2);}
+
         let result=(num1*num2);
+        result=result.toString();
+        
+        if(result.includes('.')===true && result.length>15){
+            result=parseFloat(result);
+            result=Math.round(result*100)/100;
+            display.textContent=result;
+            storedResult=result.toString();} 
+        else if(result.includes('.')===true){
+            result=parseFloat(result);
+            display.textContent=result;
+            storedResult=result.toString();}
+        else{
+        result=parseInt(result);
         display.textContent=result;
         storedResult=result.toString();
-        }
+    }};
      
     function subtract(num1, num2){
-        num1=parseInt(num1);
-        num2=parseInt(num2);
+        if(num1.includes('.')===false){
+            num1=parseInt(num1);}
+        else if(num1.includes('.')===true){
+            num1=parseFloat(num1);}
+        if(num2.includes('.')===false){
+            num2=parseInt(num2);}    
+       else if(num2.includes('.')===true){
+            num2=parseFloat(num2);}
+        
         let result=(num1-num2);
+        result=result.toString();
+      
+        if(result.includes('.')===true && result.length>15){
+            result=parseFloat(result);
+            result=Math.round(result*100)/100;
+            display.textContent=result;
+            storedResult=result.toString();} 
+        else if(result.includes('.')===true){
+            result=parseFloat(result);
+            display.textContent=result;
+            storedResult=result.toString();}
+        else{
+        result=parseInt(result);
         display.textContent=result;
         storedResult=result.toString();
-    }
+    }};
     
     function add(num1, num2){
-        num1=parseInt(num1);
-        num2=parseInt(num2);
+        if(num1.includes('.')===false){
+            num1=parseInt(num1);}
+        else if(num1.includes('.')===true){
+            num1=parseFloat(num1);}
+        if(num2.includes('.')===false){
+            num2=parseInt(num2);}    
+       else if(num2.includes('.')===true){
+            num2=parseFloat(num2);}
+        
         let result=(num1+num2);
+        result=result.toString();
+
+        if(result.includes('.')===true && result.length>15){
+            result=parseFloat(result);
+            result=Math.round(result*100)/100;
+            display.textContent=result;
+            storedResult=result.toString();} 
+        else if(result.includes('.')===true){
+            result=parseFloat(result);
+            display.textContent=result;
+            storedResult=result.toString();}
+        else{
+        result=parseInt(result);
         display.textContent=result;
         storedResult=result.toString();
-}
+    }};
