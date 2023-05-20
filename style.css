@@ -7,10 +7,7 @@ body{
     flex-direction:column;
     justify-content : center;
     align-items : center; }
-
- /* *{
-border:solid black;
-}*/
+    
 
 #calculator{
     display:flex;
@@ -43,6 +40,8 @@ border:solid black;
  flex:1;
  font-size:30px;
  }
+
+
  
 
 

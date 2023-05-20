@@ -5,6 +5,7 @@ let stringOperator=''
 let storedResult='';
  
     const display=document.getElementById('display');
+    document.addEventListener('keydown', (e)=>{let key=e.key;keyEvent(key);});
     const seven= document.getElementById('seven');
     seven.addEventListener('click', ()=>(num1.length!=0 && operator.length!=0)? storeNum2('7'): storeNum1('7'));
     const eight = document.getElementById('eight'); 
@@ -41,14 +42,87 @@ let storedResult='';
     negInt.addEventListener('click', ()=> checkNegInt());
     const decimal=document.getElementById('decimal');
     decimal.addEventListener('click', ()=>checkDec());
-    
-    function checkNegInt(){
-        if(storedResult.length!=0 || stringOperator.length!=0){
-            return storeNum1('-');}
+    const del=document.getElementById('del');
+    del.addEventListener('click', ()=>checkDel());
+
+    function keyEvent(key){
+          switch(key){
+        case '7':
+        document.getElementById('seven').click();
+        break;   
+        case '8':
+        document.getElementById('eight').click();
+        break;
+        case '9':
+        document.getElementById('nine').click();
+        break;
+        case '6':
+        document.getElementById('six').click();
+        break;
+        case '5':
+        document.getElementById('five').click();
+        break;
+        case '4':
+        document.getElementById('four').click();
+        break;
+        case '3':
+        document.getElementById('three').click();    
+        break;
+        case '2':
+        document.getElementById('two').click();
+         break;
+         case '1':
+        document.getElementById('one').click();
+        break;
+           case '0':
+        document.getElementById('zero').click();
+        break;
+           case '/':
+        document.getElementById('divide').click();
+        break;
+           case '*':
+        document.getElementById('multiply').click();
+           break;
+           case '-':
+        document.getElementById('subtract').click();
+           break;
+         case '+':
+        document.getElementById('addition').click();
+            break;
+         case 'Enter':
+            document.getElementById('equal').click();
+            break;
+         case '[' :
+        document.getElementById('neg-int').click();
+           break;
+        case ']':
+        document.getElementById('neg-int').click();
+           break;
+        case 'Backspace':
+        document.getElementById('clear').click();
+            break;
+            case 'Delete':
+        document.getElementById('del').click();
+            break;
+         case '.':
+        document.getElementById('decimal').click();
+            break;}};
+      
+      function checkDel(){
+      if(num1.length!=0 && operator.length===0){
+      num1=num1.substring(0, num1.length -1), display.textContent=num1;
+       }
+      if(num1.length!=0 && operator.length)
+      num2=num2.substring(0, num2.length -1), display.textContent=num2;    
+    };
+      
+       function checkNegInt(){
         if(num2.includes('-')===true){
             return num2=num2.replace('-', ''), display.textContent=num2;}
-         if(num1.length!=0 && operator.length!=0){
+        if(num1.length!=0 && operator.length!=0){
             return num2=`${'-'}${num2}`, display.textContent=num2;}
+        if(storedResult.length!=0 || stringOperator.length!=0){
+            return storeNum1('-');}
         if(num1.includes('-')===true){
             return num1=num1.replace('-', ''), display.textContent=num1;}
         if(operator.length===0){
@@ -66,7 +140,7 @@ let storedResult='';
             if(operator.length===0){
                return num1+='.', display.textContent=num1;}};
       
-        function storeNum1(x){
+        function storeNum1(x){   
         if(storedResult.length!=0 && operator.length!=0){
            num1=storedResult;
            storedResult='';
