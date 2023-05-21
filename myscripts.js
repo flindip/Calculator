@@ -5,7 +5,7 @@ let stringOperator=''
 let storedResult='';
  
     const display=document.getElementById('display');
-    document.addEventListener('keydown', (e)=>{let key=e.key;keyEvent(key);});
+    document.addEventListener('keydown', (e)=>{let key=e.key; e.preventDefault(); keyEvent(key);});
     const seven= document.getElementById('seven');
     seven.addEventListener('click', ()=>(num1.length!=0 && operator.length!=0)? storeNum2('7'): storeNum1('7'));
     const eight = document.getElementById('eight'); 
@@ -46,7 +46,7 @@ let storedResult='';
     del.addEventListener('click', ()=>checkDel());
 
     function keyEvent(key){
-          switch(key){
+        switch(key){
         case '7':
         document.getElementById('seven').click();
         break;   
@@ -90,6 +90,7 @@ let storedResult='';
         document.getElementById('addition').click();
             break;
          case 'Enter':
+            
             document.getElementById('equal').click();
             break;
          case '[' :
